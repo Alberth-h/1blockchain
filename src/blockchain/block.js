@@ -16,7 +16,7 @@ class Block {
         const hash = 'd4t4-newb';
         const { hash: previuosHash } = previuosBlock;
 
-        return new thid(timestamp, previuosHash, hash, data);
+        return new this(timestamp, previuosHash, hash, data);
     }
 
     toString() {
