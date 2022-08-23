@@ -11,6 +11,14 @@ class Block {
         return new this(timestamp, undefined, 'g3n3s1s-h4sh', 'g3n3s1s-d4t4');
     }
 
+    static mine(previuosBlock, data) {
+        const timestamp = Date.now()
+        const hash = 'd4t4-newb';
+        const { hash: previuosHash } = previuosBlock;
+
+        return new thid(timestamp, previuosHash, hash, data);
+    }
+
     toString() {
         const {
             timestamp,
