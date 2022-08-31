@@ -1,36 +1,48 @@
-import Block from "./block";
+import Block from './block';
 
-describe("Block", () => {
+describe('Block', () => {
     let timestamp;
-    let previuosBlock;
+    let previousBlock;
     let data;
     let hash;
 
     beforeEach(() => {
         timestamp = new Date(2010, 0, 1);
-        previuosBlock = Block.genesis;
-        data = 'transaction0';
-        hash = 'hash0';
+        previousBlock = Block.genesis;
+        data = 'transct0';
+        hash = "hash0";
     });
 
     it('Crear instancia con parametros', () => {
-        const block = new Block(timestamp, previuosBlock.hash, hash, data);
+        const block = new Block(timestamp, previousBlock.hash, hash, data);
 
         expect(block.timestamp).toEqual(timestamp);
-        expect(block.previuosHash).toEqual(previuosBlock.hash);
-        expect(block.data).toEqual(data);
+        expect(block.previousHash).toEqual(previousBlock.hash);
         expect(block.hash).toEqual(hash);
+        expect(block.data).toEqual(data);
     });
 
-    it('usando static hash', () => {
-        hash = Block.hash(timestamp, previuosBlock.hash, data);
-        const hasOutput = "d5e6fb61034a61139a670407a7b6f6183a54134518bd9e31c6f6d5492e349bca";
+    it('Usando static mine', () => {
+        const block = Block.mine(previousBlock, data);
+
+        expect(block.hash.length).toEqual(64);
+        expect(block.previousHash).toEqual(previousBlock.hash);
+        expect(block.data).toEqual(data);
+    });
+
+    it('Usando static hash', () => {
+        const block = Block.hash(timestamp, previousBlock, data);
+
+        hash = Block.hash(timestamp, previousBlock.hash, data);
+        const hasOutput = "87c3cf370c94a4c239f50115ee34b4b66f421d572b7064d60c3809b9d33a3b06";
 
         expect(hash).toEqual(hasOutput);
     });
 
-    it('usando toString', () => {
-        const block = Block.mine(previuosBlock, data);
+    it('Usando toString', () => {
+        const block = Block.mine(previousBlock, data);
+
         expect(typeof block.toString()).toEqual('string');
+
     });
 });
