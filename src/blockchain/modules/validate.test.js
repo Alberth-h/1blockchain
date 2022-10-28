@@ -1,5 +1,5 @@
-import Blockchain from "../blockchain";
-import validate from "./validate";
+import Blockchain from '../blockchain';
+import validate from './validate';
 
 describe('validate()', () => {
     let blockchain;
@@ -8,7 +8,7 @@ describe('validate()', () => {
         blockchain = new Blockchain();
     });
 
-    it('Crear cadena valida', () => {
+    it('Crear Cadena Valida', () => {
         blockchain.addBlock('transact0');
         blockchain.addBlock('transact1');
 
@@ -16,27 +16,27 @@ describe('validate()', () => {
     });
 
     it('Invalidando cadena con un genesis block corrupto', () => {
-        blockchain.blocks[0].data = "h4ck-d4t4";
+        blockchain.blocks[0].data = 'h4ack-data';
 
         expect(() => {
             validate(blockchain.blocks);
-        }).toThrowError('Bloque genesis invalido');
+        }).toThrowError('Bloque Genesis Invalido');   
     });
 
-    it('Invalidando cadena con un previousHash corrupto en un block', () => {
+    it('Invalidando una cadena con un previousHash corrupto en un block', () => {
         blockchain.addBlock('transact2');
-        blockchain.blocks[1].previousHash = "h4ck-pr3v10usH4sh";
+        blockchain.blocks[1].previousHash = 'h4ack-previousHash';
 
-        expect(() => {
+        expect(() =>{
             validate(blockchain.blocks);
         }).toThrowError('Hash previo invalido o corrupto');
     });
 
-    it('Invalidando cadena con un block con un hash corrupto', () => {
+    it('Invalidando una cadena con un block con hash corrupto', () =>{
         blockchain.addBlock('transact3');
-        blockchain.blocks[1].hash = "h4ck-h4sh";
+        blockchain.blocks[1].hash = 'h4ck-hash';
 
-        expect(() => {
+        expect(() =>{
             validate(blockchain.blocks);
         }).toThrowError('Hash Invalido');
     });
